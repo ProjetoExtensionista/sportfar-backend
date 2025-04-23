@@ -1,0 +1,17 @@
+# Ignore dependencies
+node_modules
+npm-debug.log
+
+# Ignore build artifacts
+dist
+
+# Ignore environment files
+.env
+
+# Ignore Docker-related files
+Dockerfile
+.dockerignore
+
+# OS-specific files
+.DS_Store
+Thumbs.db

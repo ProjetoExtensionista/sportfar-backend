@@ -1,16 +1,32 @@
-import { Controller, Request, Post, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Request,
+  Post,
+  UseGuards,
+  Body,
+  Get,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { UserRequest } from './Models/UserRequest';
 
-@Controller()
+@Controller('Login')
 export class AppController {
   @UseGuards(AuthGuard('local'))
   @Post('auth/login')
-  async login(@Request() req) {
-    return req.user;
+  login(@Body() @Request() req: UserRequest) {
+    return req.username;
   }
 
   @Post('auth/logout')
-  async logout(@Request() req) {
+  logout(@Request() req) {
     return req.logout();
+  }
+}
+
+@Controller('outraController')
+export class LoginController {
+  @Get('fodase')
+  fodase() {
+    return 'fodase';
   }
 }
