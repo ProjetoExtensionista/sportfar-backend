@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AppController, LoginController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AppController } from './app.controller';
 
 //TODO: Criar arquivo de configuração pro TypeORM Module
 @Module({
@@ -12,16 +12,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     UsersModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'mysql-db',
-      port: 3306,
-      username: 'user',
-      password: 'userpass',
-      database: 'myapp',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT ?? '0'),
+      username: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: process.env.DB_NAME,
       autoLoadEntities: true,
       synchronize: true,
     }),
   ],
-  controllers: [AppController, LoginController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

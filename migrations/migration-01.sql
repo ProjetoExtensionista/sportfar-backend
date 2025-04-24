@@ -1,0 +1,113 @@
+USE ads01;
+
+CREATE TABLE IF NOT EXISTS `COMPANY` (
+  `id` INTEGER PRIMARY KEY,
+  `name` VARCHAR(100) NOT NULL,
+  `url_substring` VARCHAR(20) NOT NULL,
+  `logo` BINARY
+);
+
+CREATE TABLE IF NOT EXISTS `USERS` (
+  `id` INTEGER PRIMARY KEY,
+  `full_name` VARCHAR(100) NOT NULL,
+  `cpf` VARCHAR(11) UNIQUE NOT NULL,
+  `birth_date` DATE NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `password` VARCHAR(100),
+  `password_temp` BOOLEAN DEFAULT true,
+  `address` VARCHAR(200) NOT NULL,
+  `city` VARCHAR(100) NOT NULL,
+  `cep` VARCHAR(8) NOT NULL,
+  `phone` VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS `USERTYPE` (
+  `id` INTEGER PRIMARY KEY,
+  `type` VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `USERS_USERTYPE` (
+  `id` INTEGER PRIMARY KEY,
+  `user_id` INTEGER NOT NULL,
+  `user_type_id` INTEGER NOT NULL,
+  `company_id` INTEGER NOT NULL,
+  FOREIGN KEY (`user_id`) REFERENCES `USERS` (`id`),
+  FOREIGN KEY (`user_type_id`) REFERENCES `USERTYPE` (`id`),
+  FOREIGN KEY (`company_id`) REFERENCES `COMPANY` (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `COURSES` (
+  `id` INTEGER PRIMARY KEY,
+  `name` VARCHAR(100) NOT NULL,
+  `company_id` INTEGER NOT NULL,
+  FOREIGN KEY (`company_id`) REFERENCES `COMPANY` (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `WEEKDAYS` (
+  `id` INTEGER PRIMARY KEY,
+  `name` VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `CLASSES` (
+  `id` INTEGER PRIMARY KEY,
+  `name` VARCHAR(100) NOT NULL,
+  `capacity` INTEGER NOT NULL,
+  `hour_start` TIMESTAMP NOT NULL,
+  `hour_end` TIMESTAMP,
+  `status` BOOLEAN DEFAULT true,
+  `date_start` DATE NOT NULL,
+  `date_end` DATE NOT NULL,
+  `date_start_enroll` DATE NOT NULL,
+  `date_end_enroll` DATE NOT NULL,
+  `week_day_id` INTEGER NOT NULL,
+  `course_id` INTEGER NOT NULL,
+  FOREIGN KEY (`course_id`) REFERENCES `COURSES` (`id`),
+  FOREIGN KEY (`week_day_id`) REFERENCES `WEEKDAYS` (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `CLASSROOM` (
+  `id` INTEGER PRIMARY KEY,
+  `current_date` DATE NOT NULL,
+  `class_id` INTEGER NOT NULL,
+  FOREIGN KEY (`class_id`) REFERENCES `CLASSES` (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `ABSENCE_TYPE` (
+  `id` INTEGER PRIMARY KEY,
+  `type` VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `ABSENCE` (
+  `id` INTEGER PRIMARY KEY,
+  `classroom_id` INTEGER NOT NULL,
+  `user_id` INTEGER NOT NULL,
+  `type_id` INTEGER NOT NULL,
+  FOREIGN KEY (`classroom_id`) REFERENCES `CLASSROOM` (`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `USERS` (`id`),
+  FOREIGN KEY (`type_id`) REFERENCES `ABSENCE_TYPE` (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `USER_CLASS` (
+  `id` INTEGER PRIMARY KEY,
+  `enrolled` BOOLEAN NOT NULL DEFAULT false,
+  `user_id` INTEGER NOT NULL,
+  `class_id` INTEGER NOT NULL,
+  FOREIGN KEY (`user_id`) REFERENCES `USERS` (`id`),
+  FOREIGN KEY (`class_id`) REFERENCES `CLASSES` (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `GUARDIAN_STUDENT` (
+  `id` INTEGER PRIMARY KEY,
+  `guardian_id` INTEGER NOT NULL,
+  `student_id` INTEGER NOT NULL,
+  FOREIGN KEY (`guardian_id`) REFERENCES `USERS` (`id`),
+  FOREIGN KEY (`student_id`) REFERENCES `USERS` (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `EDUCATORS_CLASSES` (
+  `id` INTEGER PRIMARY KEY,
+  `educator_id` INTEGER NOT NULL,
+  `class_id` INTEGER NOT NULL,
+  FOREIGN KEY (`educator_id`) REFERENCES `USERS` (`id`),
+  FOREIGN KEY (`class_id`) REFERENCES `CLASSES` (`id`)
+);

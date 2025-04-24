@@ -22,11 +22,3 @@ export class AppController {
     return req.logout();
   }
 }
-
-@Controller('outraController')
-export class LoginController {
-  @Get('fodase')
-  fodase() {
-    return 'fodase';
-  }
-}

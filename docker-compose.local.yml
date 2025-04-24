@@ -1,0 +1,35 @@
+services:
+  mysql:
+    image: mysql:9.3
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "${MYSQL_PORT}:3306"
+    volumes:
+      - "db:/var/lib/mysql"
+
+  sportfar-backend:
+    build: .
+    container_name: sportfar-backend
+    depends_on:
+      - mysql
+    environment:
+      DB_PORT: ${MYSQL_PORT}
+      DB_HOST: ${MYSQL_HOST}
+      DB_USER: ${MYSQL_USER}
+      DB_PASS: ${MYSQL_PASSWORD}
+      DB_NAME: ${MYSQL_DATABASE}
+      PORT: ${BACKEND_PORT}
+    ports:
+      - "5000:${BACKEND_PORT}"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: "npm run helper:migrate_and_run:dev"
+
+volumes:
+  db:
