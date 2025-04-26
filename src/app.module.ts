@@ -3,9 +3,9 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './users/Entities/User';
 import { AppController } from './app.controller';
 
-//TODO: Criar arquivo de configuração pro TypeORM Module
 @Module({
   imports: [
     AuthModule,
@@ -18,8 +18,12 @@ import { AppController } from './app.controller';
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: false,
+      retryDelay: 3000,
+      logging: ['query', 'error'],
+      logger: 'advanced-console',
     }),
+    TypeOrmModule.forFeature([User]),
   ],
   controllers: [AppController],
   providers: [AppService],
