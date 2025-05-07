@@ -1,23 +1,26 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { Logger } from '@nestjs/common';
+import { installSwagger } from './installers/swagger';
 
 async function bootstrap() {
+  console.log(process.env.DB_USER);
+
   const app = await NestFactory.create(AppModule);
 
-  const config = new DocumentBuilder()
-    .setTitle('POC login')
-    .setDescription('prova de conceito do login')
-    .setVersion('1.0')
-    .addTag('login')
-    .build();
-
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('swagger', app, document);
+  installSwagger(app);
 
   const port = process.env.PORT || 5000;
-  console.log(`Started and listening to: ${port}`);
   await app.listen(port);
+
+  return await app.getUrl();
 }
 
-bootstrap();
+void (async (): Promise<void> => {
+  try {
+    const url = await bootstrap();
+    Logger.log(`Started and listening to: ${url}`, 'Bootstrap');
+  } catch (error) {
+    Logger.error(error, 'Bootstrap');
+  }
+})();

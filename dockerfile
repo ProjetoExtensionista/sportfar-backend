@@ -1,19 +1,19 @@
-FROM node:23.11-alpine
-
+FROM node:23-slim AS base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+COPY . /app
 WORKDIR /app
 
-# Copy dependency files first
-COPY package*.json ./
+FROM base AS prod-deps
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
-# Install dependencies
-RUN npm install
+FROM base AS build
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm run build
 
-# Copy the rest of the code
-COPY . .
-
-# Build the NestJS app
-RUN npm run build
-
-EXPOSE 3000
-
-CMD ["node", "dist/main"]
+FROM base
+COPY --from=prod-deps /app/node_modules /app/node_modules
+COPY --from=build /app/dist /app/dist
+EXPOSE 5000
+CMD [ "pnpm", "start" ]

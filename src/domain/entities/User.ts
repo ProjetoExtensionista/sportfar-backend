@@ -4,17 +4,17 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column()
+  @Column({ name: 'full_name' })
   fullName: string;
   @Column()
   cpf: string;
-  @Column()
+  @Column({ name: 'birth_date' })
   birthDate: Date;
   @Column()
   email: string;
   @Column()
   password: string;
-  @Column()
+  @Column({ name: 'password_temp' })
   passwordTemp: boolean;
   @Column()
   address: string;

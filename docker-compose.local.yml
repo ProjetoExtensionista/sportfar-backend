@@ -4,11 +4,11 @@ services:
     container_name: mysql-db
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
     ports:
-      - "${MYSQL_PORT}:3306"
+      - "${DB_PORT}:3306"
     volumes:
       - "db:/var/lib/mysql"
 
@@ -18,18 +18,16 @@ services:
     depends_on:
       - mysql
     environment:
-      DB_PORT: ${MYSQL_PORT}
-      DB_HOST: ${MYSQL_HOST}
-      DB_USER: ${MYSQL_USER}
-      DB_PASS: ${MYSQL_PASSWORD}
-      DB_NAME: ${MYSQL_DATABASE}
+      DB_PORT: ${DB_PORT}
+      DB_HOST: mysql
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DB_NAME: ${DB_NAME}
+      JWT_SECRET: ${JWT_SECRET}
       PORT: ${BACKEND_PORT}
     ports:
       - "5000:${BACKEND_PORT}"
-    volumes:
-      - .:/app
-      - /app/node_modules
-    command: "npm run helper:migrate_and_run:dev"
+    command: "npm run helper:migrate_and_run"
 
 volumes:
   db:
