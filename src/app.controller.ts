@@ -1,4 +1,11 @@
-import { Controller, Request, Post, UseGuards, Body } from '@nestjs/common';
+import {
+  Controller,
+  Request,
+  Post,
+  UseGuards,
+  Body,
+  Get,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserRequest } from './Models/UserRequest';
 
@@ -8,5 +15,15 @@ export class AppController {
   @Post('auth/login')
   login(@Body() @Request() req: UserRequest) {
     return req.username;
+  }
+
+  @Post('auth/logout')
+  logout(@Request() req) {
+    return req.logout();
+  }
+
+  @Get('moises')
+  jorge() {
+    return 'ola mundo';
   }
 }
