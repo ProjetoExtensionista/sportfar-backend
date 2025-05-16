@@ -19,7 +19,8 @@ export class AppController {
   @UseGuards(AuthGuard('local'))
   @Post('auth/login')
   login(@Body() @Request() req: UserRequest) {
-    return req.username;
+    const escape = require('escape-html');
+    return escape(req.username);
   }
 }
 
