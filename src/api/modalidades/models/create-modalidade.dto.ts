@@ -1,9 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UserRequest {
+export class CreateModalidadeDto {
   @ApiProperty()
-  username: string;
-
+  name: string;
   @ApiProperty()
-  password: string;
+  company_id: number;
 }

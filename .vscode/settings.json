@@ -15,5 +15,13 @@
 		"*.s3db": "${capture}.${extname}-*",
 		"nest-cli.json": ".prettierrc, eslint.config.mjs",
 		"dockerfile": "docker-compose.yml, docker-compose.local.yml, .dockerignore"
-	}
+	},
+	"editor.codeActionsOnSave": {
+		"source.addMissingImports.ts": "explicit",
+		"source.fixAll.ts": "explicit",
+		"source.organizeImports": "explicit",
+		"source.sortImports": "explicit",
+		"source.fixAll.eslint": "explicit",
+		"source.removeUnusedImports": "explicit"
+	},
 }
