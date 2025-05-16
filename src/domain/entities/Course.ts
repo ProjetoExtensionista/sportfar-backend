@@ -1,9 +1,15 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Company } from '../company/company.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Company } from './Company';
 
 @Entity('COURSES')
-export class Modalidade {
-  @PrimaryGeneratedColumn()
+export class Course {
+  @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Column({ length: 100 })

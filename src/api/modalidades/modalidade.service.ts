@@ -1,15 +1,15 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { CreateModalidadeDto } from "./create-modalidade.dto";
-import { Modalidade } from "./modalidade.entity";
-import { UpdateModalidadeDto } from "./update-modalidade.dto";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Course } from '../../domain/entities/Course';
+import { CreateModalidadeDto } from './models/create-modalidade.dto';
+import { UpdateModalidadeDto } from './models/update-modalidade.dto';
 
 @Injectable()
 export class ModalidadeService {
   constructor(
-    @InjectRepository(Modalidade)
-    private modalidadeRepo: Repository<Modalidade>,
+    @InjectRepository(Course)
+    private modalidadeRepo: Repository<Course>,
   ) {}
 
   create(dto: CreateModalidadeDto) {
