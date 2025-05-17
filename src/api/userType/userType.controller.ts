@@ -22,7 +22,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { UserTypeDto } from './models/userType.dto';
 import { UserTypeService } from './userType.service';
 
-@Controller('usertype')
+@Controller('user/type')
 @ApiUnauthorizedResponse()
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth()

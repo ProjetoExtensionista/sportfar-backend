@@ -1,8 +1,8 @@
 import * as common from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Absence } from './Entities/Absence';
-import { AbsenceDto } from './absence.dto';
+import { Absence } from '../../domain/entities/Absence';
+import { AbsenceDto } from './models/absence.dto';
 
 @common.Injectable()
 export class AbsenceService {
