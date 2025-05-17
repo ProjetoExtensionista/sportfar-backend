@@ -1,8 +1,9 @@
 import * as common from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UserType } from 'src/domain/entities/UserType';
 import { Repository } from 'typeorm';
-import { UserType } from './Entities/UserType';
-import { UserTypeDto } from './userType.dto';
+import { UserTypeDto } from './models/userType.dto';
 
 @common.Injectable()
 export class UserTypeService {
@@ -21,14 +22,18 @@ export class UserTypeService {
   }
 
   async updateUserType(id: number, userTypeDto: Partial<UserTypeDto>) {
-    return await this.userTypeRepo.update(id, userTypeDto);
+    const result = await this.userTypeRepo.update(id, userTypeDto);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`UserType com o ${id} não encontrado`);
+    }
+
+    return result;
   }
 
   async deleteUserType(id: number) {
     const result = await this.userTypeRepo.delete(id);
 
-    if (result.affected === 0) {
-      throw new common.NotFoundException(`UserType com o ${id} não encontrado`);
-    }
+    return (result.affected ?? 0) > 0;
   }
 }

@@ -13,6 +13,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { Request } from 'express';
+import { escape } from 'querystring';
 import { encrypt } from 'src/domain/encryption/encryption';
 import { User } from 'src/domain/entities/User';
 import { AuthService } from './auth.service';
@@ -36,7 +37,7 @@ export class AuthController {
   @ApiOkResponse({ type: String })
   @ApiUnauthorizedResponse()
   self(@Req() req: Request) {
-    return (req.user as User).email;
+    return escape((req.user as User).email);
   }
 
   @Get('hash/:text')
