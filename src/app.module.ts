@@ -4,7 +4,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/Entities/User';
-import { AbsenceController, AppController } from './app.controller';
+import { AbsenceController, AbsenceTypeController, AppController } from './app.controller';
 import * as dotenv from 'dotenv';
 import { AbsenceService } from './absence/absence.service';
 import { AbsenceModule } from './absence/absence.module';
@@ -40,7 +40,7 @@ console.log('DB config:', {
     }),
     TypeOrmModule.forFeature([User, Absence]),
   ],
-  controllers: [AppController, AbsenceController],
+  controllers: [AppController, AbsenceController, AbsenceTypeController],
   providers: [AppService, AbsenceService, AbsenceTypeService],
 })
 export class AppModule {}
