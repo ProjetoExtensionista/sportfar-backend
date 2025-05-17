@@ -1,37 +1,17 @@
 import {
-  Controller,
-  Request,
-  Post,
-  UseGuards,
   Body,
-  Param,
-  Get,
-  Patch,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { UserRequest } from './Models/UserRequest';
-import { AbsenceDto } from './absence/absence.dto';
-import { AbsenceTypeDto } from './absence/absencetype.dto';
-import { AbsenceService } from './absence/absence.service';
-import { AbsenceTypeService } from './absence/absencetype.service';
 import { ApiBody, ApiParam } from '@nestjs/swagger';
-
-@Controller('Login')
-export class AppController {
-  constructor(private absenceService: AbsenceService) {}
-
-  @UseGuards(AuthGuard('local'))
-  @Post('auth/login')
-  login(@Body() @Request() req: UserRequest) {
-    return req.username;
-  }
-
-  @Post('auth/logout')
-  logout(@Request() req) {
-    return req.logout();
-  }
-}
+import { AbsenceDto } from './absence/absence.dto';
+import { AbsenceService } from './absence/absence.service';
+import { AbsenceTypeDto } from './absence/absencetype.dto';
+import { AbsenceTypeService } from './absence/absencetype.service';
 
 @Controller('Absence')
 export class AbsenceController {
