@@ -17,7 +17,7 @@ export class EducatorClassesController {
 
   @Post()
   async create(@Body() educatorClassesDto: EducatorClassesDto) {
-    await this.educatorClassesService.insertEducatorClasses(educatorClassesDto);
+    return await this.educatorClassesService.insertEducatorClasses(educatorClassesDto);
   }
 
   @Get(':id')
