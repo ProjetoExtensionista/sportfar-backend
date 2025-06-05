@@ -19,7 +19,7 @@ import { Course } from 'src/domain/entities/Course';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { CourseService } from './course.service';
 import { CreateCourseDto } from './models/createCourse.dto';
-import { UpdateCourseDto } from './models/updateCrouse.dto';
+import { UpdateCourseDto } from './models/updateCoruse.dto';
 
 @Controller('modalidades')
 @ApiUnauthorizedResponse()
