@@ -2,9 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class AbsenceDto {
   @ApiProperty()
-  id: number;
-
-  @ApiProperty()
   classroom_id: number;
 
   @ApiProperty()
