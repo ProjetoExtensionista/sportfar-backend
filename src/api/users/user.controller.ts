@@ -31,7 +31,6 @@ export class UserController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   async post(@Body() user: UserRequestDto) {
-    console.log(user);
     return await this.userService.insert(user);
   }
 }

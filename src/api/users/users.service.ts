@@ -28,9 +28,7 @@ export class UsersService {
   }
 
   async insert(user: UserRequestDto): Promise<UserRequestDto> {
-    console.log('DTO recebido:', user);
     const userType = this.userRepo.create(user);
-    console.log('userType:', userType);
 
     return this.userRepo.save(userType);
   }
