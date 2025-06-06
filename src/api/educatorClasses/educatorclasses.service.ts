@@ -38,7 +38,7 @@ export class EducatorClassesService {
 
     if (result.affected === 0) {
       throw new common.NotFoundException(
-        `Relação Educator Class com o ${id} não encontrado`,
+        `Relação Educator Class com o id:${id} não encontrado`,
       );
     }
   }
