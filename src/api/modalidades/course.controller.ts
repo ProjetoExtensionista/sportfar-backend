@@ -17,20 +17,20 @@ import {
 } from '@nestjs/swagger';
 import { Course } from 'src/domain/entities/Course';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
-import { ModalidadeService } from './modalidade.service';
-import { CreateModalidadeDto } from './models/create-modalidade.dto';
-import { UpdateModalidadeDto } from './models/update-modalidade.dto';
+import { CourseService } from './course.service';
+import { CreateCourseDto } from './models/createCourse.dto';
+import { UpdateCourseDto } from './models/updateCourse.dto';
 
 @Controller('modalidades')
 @ApiUnauthorizedResponse()
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
-export class ModalidadeController {
-  constructor(private readonly service: ModalidadeService) {}
+export class CourseController {
+  constructor(private readonly service: CourseService) {}
 
   @Post()
   @ApiOkResponse({ type: Course })
-  create(@Body() dto: CreateModalidadeDto) {
+  create(@Body() dto: CreateCourseDto) {
     return this.service.create(dto);
   }
 
@@ -54,12 +54,12 @@ export class ModalidadeController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() dto: UpdateModalidadeDto) {
+  update(@Param('id') id: string, @Body() dto: UpdateCourseDto) {
     return this.service.update(+id, dto);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return (await this.service.remove(+id)).affected! > 0;
+  remove(@Param('id') id: string) {
+    return this.service.remove(+id);
   }
 }
