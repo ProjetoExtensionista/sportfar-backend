@@ -1,12 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { Class } from './Class';
-import { User } from './User';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('USER_CLASS')
 export class UserClass {
@@ -18,10 +10,12 @@ export class UserClass {
   userId: number;
   @Column({ name: 'class_id' })
   classId: number;
-  @ManyToOne(() => User, (user) => user.classe)
-  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
-  user: User;
-  @ManyToOne(() => Class, (classe) => classe.user)
-  @JoinColumn({ name: 'class_id', referencedColumnName: 'id' })
-  classe: Class;
+
+  // TODO: Fix this
+  //@ManyToOne(() => User, (user) => user.classe)
+  //@JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
+  //user: User;
+  //@ManyToOne(() => Class, (classe) => classe.user)
+  //@JoinColumn({ name: 'class_id', referencedColumnName: 'id' })
+  //classe: Class;
 }
