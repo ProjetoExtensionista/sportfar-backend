@@ -24,4 +24,12 @@ export class UserController {
   async find(@Param('cpf') cpf: string) {
     return this.userService.findByCpf(cpf);
   }
+
+  @Get('findByClass/:classId')
+  @ApiOkResponse({ type: User })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  async findByClass(@Param('classId') classId: number) {
+    return this.userService.findByClass(classId);
+  }
 }
