@@ -9,29 +9,29 @@ import { UpdateCourseDto } from './models/updateCourse.dto';
 export class CourseService {
   constructor(
     @InjectRepository(Course)
-    private modalidadeRepo: Repository<Course>,
+    private courseRepo: Repository<Course>,
   ) {}
 
   create(dto: CreateCourseDto) {
-    const modalidade = this.modalidadeRepo.create(dto);
-    return this.modalidadeRepo.save(modalidade);
+    const course = this.courseRepo.create(dto);
+    return this.courseRepo.save(course);
   }
 
   findAll() {
-    return this.modalidadeRepo.find();
+    return this.courseRepo.find();
   }
 
   findOne(id: number) {
-    return this.modalidadeRepo.findOneBy({ id });
+    return this.courseRepo.findOneBy({ id });
   }
 
   update(id: number, dto: UpdateCourseDto) {
-    return this.modalidadeRepo.update(id, dto);
+    return this.courseRepo.update(id, dto);
   }
 
   async remove(id: number) {
     try {
-      return await this.modalidadeRepo.delete(id);
+      return await this.courseRepo.delete(id);
     } catch (error: unknown) {
       return {
         error: HttpStatus.CONFLICT,
