@@ -1,12 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class AbsenceDto {
+export class UserClassDto {
   @ApiProperty()
-  classroom_id: number;
+  id: number;
+
+  @ApiProperty()
+  enrolled: boolean;
 
   @ApiProperty()
   user_id: number;
 
   @ApiProperty()
-  type_id: number;
+  class_id: number;
 }

@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { ApiBody, ApiParam } from '@nestjs/swagger';
 import { AbsenceTypeService } from './absencetype.service';
-import { AbsenceTypeDto } from './models/absencetype.dto';
+import { AbsenceTypeDto } from './models/absenceType.dto';
 
 @Controller('absence/type')
 export class AbsenceTypeController {

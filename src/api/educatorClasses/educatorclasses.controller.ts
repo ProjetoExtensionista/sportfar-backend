@@ -11,13 +11,15 @@ import { ApiBody, ApiParam } from '@nestjs/swagger';
 import { EducatorClassesService } from './educatorclasses.service';
 import { EducatorClassesDto } from './models/educatorclasses.dto';
 
-@Controller('educatorClasses')
+@Controller('classes')
 export class EducatorClassesController {
   constructor(private educatorClassesService: EducatorClassesService) {}
 
   @Post()
   async create(@Body() educatorClassesDto: EducatorClassesDto) {
-    return await this.educatorClassesService.insertEducatorClasses(educatorClassesDto);
+    return await this.educatorClassesService.insertEducatorClasses(
+      educatorClassesDto,
+    );
   }
 
   @Get(':id')

@@ -4,18 +4,30 @@ import { AbsenceTypeModule } from './absenceType/absencetype.module';
 import { AuthModule } from './auth/auth.module';
 import { EducatorClassesModule } from './educatorClasses/educatorclasses.module';
 import { GrantEducatorTypeToUserModule } from './grantEducatorTypeToUser/grantEducatorTypeToUser.module';
-import { ModalidadeModule } from './modalidades/modalidade.module';
 import { UsersModule } from './users/users.module';
 import { UserTypeModule } from './userType/userType.module';
+import { ClassModule } from './classes/class.module';
+import { CourseModule } from './courses/course.module';
+import { UsersModule } from './users/users.module';
+import { UserTypeModule } from './userType/userType.module';
+import { UserClassModule } from './userClass/userClass.module';
+import { ClassRoomModule } from './classRoom/classRoom.module';
+import { EducatorClassesModule } from './educatorClasses/educatorclasses.module';
 
 @Module({
   imports: [
+    AbsenceModule,
+    AbsenceTypeModule,
     AuthModule,
+    ClassModule,
+    CourseModule,
     UsersModule,
-    ModalidadeModule,
     UserTypeModule,
     AbsenceModule,
     AbsenceTypeModule,
+    UserClassModule,
+    ClassModule,
+    ClassRoomModule,
     EducatorClassesModule,
     GrantEducatorTypeToUserModule,
   ],
