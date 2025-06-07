@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Course } from '../../domain/entities/Course';
@@ -29,8 +29,14 @@ export class CourseService {
     return this.courseRepo.update(id, dto);
   }
 
-  remove(id: number) {
-    //TODO: validar se pode excluir todas as aulas que tem uma modalidade quando exclui uma modalidade
-    return this.courseRepo.delete(id);
+  async remove(id: number) {
+    try {
+      return await this.courseRepo.delete(id);
+    } catch (error: unknown) {
+      return {
+        error: HttpStatus.CONFLICT,
+        message: 'Não foi possível apagar o registro.',
+      };
+    }
   }
 }

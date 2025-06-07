@@ -21,7 +21,7 @@ import { CourseService } from './course.service';
 import { CreateCourseDto } from './models/createCourse.dto';
 import { UpdateCourseDto } from './models/updateCourse.dto';
 
-@Controller('modalidades')
+@Controller('courses')
 @ApiUnauthorizedResponse()
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
