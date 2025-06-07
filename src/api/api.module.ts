@@ -7,7 +7,6 @@ import { CourseModule } from './courses/course.module';
 import { UsersModule } from './users/users.module';
 import { UserTypeModule } from './userType/userType.module';
 import { UserClassModule } from './userClass/userClass.module';
-import { ClassModule } from './class/class.module';
 import { ClassRoomModule } from './classRoom/classRoom.module';
 import { EducatorClassesModule } from './educatorClasses/educatorclasses.module';
 
