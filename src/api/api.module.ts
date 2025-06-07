@@ -6,6 +6,8 @@ import { ClassModule } from './classes/class.module';
 import { CourseModule } from './courses/course.module';
 import { UsersModule } from './users/users.module';
 import { UserTypeModule } from './userType/userType.module';
+import { UserClassModule } from './userClass/userClass.module';
+import { ClassRoomModule } from './classRoom/classRoom.module';
 import { EducatorClassesModule } from './educatorClasses/educatorclasses.module';
 
 @Module({
@@ -19,6 +21,9 @@ import { EducatorClassesModule } from './educatorClasses/educatorclasses.module'
     UserTypeModule,
     AbsenceModule,
     AbsenceTypeModule,
+    UserClassModule,
+    ClassModule,
+    ClassRoomModule,
     EducatorClassesModule,
   ],
 })

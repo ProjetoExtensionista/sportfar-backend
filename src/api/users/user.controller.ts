@@ -26,6 +26,14 @@ export class UserController {
     return this.userService.findByCpf(cpf);
   }
 
+  @Get('findByClass/:classId')
+  @ApiOkResponse({ type: User })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  async findByClass(@Param('classId') classId: number) {
+    return this.userService.findByClass(classId);
+  }
+
   @Post()
   @ApiOkResponse({ type: UserRequestDto })
   @ApiBearerAuth()

@@ -3,12 +3,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../../domain/entities/User';
 import { UserRequestDto } from './models/userRequestDto';
+import { UserClass } from 'src/domain/entities/UserClass';
 
 @common.Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private userRepo: Repository<User>,
+    @InjectRepository(UserClass)
+    private userClassRepo: Repository<UserClass>,
   ) {}
 
   async findByUserName(fullName: string): Promise<User | null> {
@@ -31,5 +34,15 @@ export class UsersService {
     const userType = this.userRepo.create(user);
 
     return this.userRepo.save(userType);
+  }
+
+  async findByClass(classId: number): Promise<User[]> {
+    const users = await this.userRepo
+      .createQueryBuilder('u')
+      .innerJoin('u.userClasses', 'uc')
+      .where('uc.classId = :classId', { classId: classId })
+      .getMany();
+
+    return users;
   }
 }
