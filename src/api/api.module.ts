@@ -6,6 +6,7 @@ import { ClassModule } from './classes/class.module';
 import { CourseModule } from './courses/course.module';
 import { UsersModule } from './users/users.module';
 import { UserTypeModule } from './userType/userType.module';
+import { EducatorClassesModule } from './educatorClasses/educatorclasses.module';
 
 @Module({
   imports: [
@@ -16,6 +17,9 @@ import { UserTypeModule } from './userType/userType.module';
     CourseModule,
     UsersModule,
     UserTypeModule,
+    AbsenceModule,
+    AbsenceTypeModule,
+    EducatorClassesModule,
   ],
 })
 export class ApiModule {}
