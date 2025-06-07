@@ -2,6 +2,7 @@ import * as common from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../../domain/entities/User';
+import { UserRequestDto } from './models/userRequestDto';
 import { UserClass } from 'src/domain/entities/UserClass';
 
 @common.Injectable()
@@ -27,6 +28,12 @@ export class UsersService {
 
   async findAll(): Promise<User[]> {
     return this.userRepo.find();
+  }
+
+  async insert(user: UserRequestDto): Promise<UserRequestDto> {
+    const userType = this.userRepo.create(user);
+
+    return this.userRepo.save(userType);
   }
 
   async findByClass(classId: number): Promise<User[]> {

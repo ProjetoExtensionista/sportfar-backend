@@ -5,8 +5,6 @@ import { installCORS } from './installers/cors';
 import { installSwagger } from './installers/swagger';
 
 async function bootstrap() {
-  console.log(process.env.DB_USER);
-
   const app = await NestFactory.create(AppModule);
 
   installSwagger(app);

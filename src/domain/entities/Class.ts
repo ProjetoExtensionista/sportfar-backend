@@ -1,69 +1,73 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { User } from './User';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Course } from './Course';
 
 @Entity('CLASSES')
 export class Class {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment')
   @ApiProperty()
   id: number;
 
-  @Column()
+  @Column({ name: 'name' })
   @ApiProperty()
   name: string;
 
-  @Column()
+  @Column({ name: 'capacity' })
   @ApiProperty()
   capacity: number;
 
   @Column({ name: 'year_from' })
   @ApiProperty()
-  yearFrom: number;
+  year_from: number;
 
   @Column({ name: 'year_to' })
   @ApiProperty()
-  yearTo: number;
+  year_to: number;
 
   @Column({ name: 'hour_start' })
   @ApiProperty()
-  hourStart: string;
+  hour_start: Date;
 
   @Column({ name: 'hour_end' })
   @ApiProperty()
-  hourEnd: string;
+  hour_end: Date;
 
-  @Column()
+  @Column({ name: 'status' })
   @ApiProperty()
-  status: string;
+  status: boolean;
 
   @Column({ name: 'date_start' })
   @ApiProperty()
-  dateStart: Date;
+  date_start: Date;
 
   @Column({ name: 'date_end' })
   @ApiProperty()
-  dateEnd: Date;
+  date_end: Date;
 
   @Column({ name: 'date_start_enroll' })
   @ApiProperty()
-  dateStartEnroll: Date;
+  date_start_enroll: Date;
 
   @Column({ name: 'date_end_enroll' })
   @ApiProperty()
-  dateEndEnroll: Date;
+  date_end_enroll: Date;
 
   @Column({ name: 'week_day_id' })
   @ApiProperty()
-  weekDayId: number;
+  week_day_id: number;
 
-  @Column()
+  @Column({ name: 'gender' })
   @ApiProperty()
-  gender: string;
+  gender: number;
 
-  @Column({ name: 'course_id' })
+  @ManyToOne(() => Course, { eager: true })
+  @JoinColumn({ name: 'course_id' })
   @ApiProperty()
-  courseId: number;
-
-  @ManyToMany(() => User, (user) => user.classe)
-  user: User[];
+  course: Course;
 }
