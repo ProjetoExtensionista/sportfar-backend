@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Class } from '../../domain/entities/Class';
+import { EducatorClassService } from '../educatorClass/educatorClass.service';
 import { CreateClassDto } from './models/createClass.dto';
 import { UpdateClassDto } from './models/updateClass.dto';
 
@@ -10,27 +11,41 @@ export class ClassService {
   constructor(
     @InjectRepository(Class)
     private classRepo: Repository<Class>,
+    private educatorClassService: EducatorClassService,
   ) {}
 
-  create(dto: CreateClassDto) {
-    const model = this.classRepo.create(dto);
-    return this.classRepo.save(model);
+  async insert(dto: CreateClassDto) {
+    const model = await this.classRepo.save(this.classRepo.create(dto));
+
+    await Promise.all(
+      dto.educators.map((educator_id) =>
+        this.educatorClassService.insert({
+          educator_id,
+          class_id: model.id,
+        }),
+      ),
+    );
+
+    return model;
   }
 
-  findAll() {
+  findAll(): Promise<Class[] | null> {
     return this.classRepo.find();
   }
 
-  findOne(id: number) {
+  findOne(id: number): Promise<Class | null> {
     return this.classRepo.findOneBy({ id });
   }
 
-  update(id: number, dto: UpdateClassDto) {
+  findByCourse(course_id: number): Promise<Class[] | null> {
+    return this.classRepo.find({ where: { course: { id: course_id } } });
+  }
+
+  update(id: number, dto: Partial<UpdateClassDto>) {
     return this.classRepo.update(id, dto);
   }
 
-  remove(id: number) {
-    //TODO: validar se pode excluir todas as aulas que tem uma modalidade quando exclui uma modalidade
+  delete(id: number) {
     return this.classRepo.delete(id);
   }
 }

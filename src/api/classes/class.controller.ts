@@ -31,7 +31,7 @@ export class ClassController {
   @Post()
   @ApiOkResponse({ type: Class })
   create(@Body() dto: CreateClassDto) {
-    return this.service.create(dto);
+    return this.service.insert(dto);
   }
 
   @Get()
@@ -53,6 +53,13 @@ export class ClassController {
     return model;
   }
 
+  @Get('course/:course_id')
+  @ApiNotFoundResponse({ type: Class, isArray: true })
+  @ApiNotFoundResponse()
+  async findByCourse(@Param('course_id') course_id: number) {
+    return await this.service.findByCourse(course_id);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() dto: UpdateClassDto) {
     return this.service.update(+id, dto);
@@ -60,6 +67,6 @@ export class ClassController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.service.remove(+id);
+    return this.service.delete(+id);
   }
 }

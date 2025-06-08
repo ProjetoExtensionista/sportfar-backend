@@ -42,4 +42,7 @@ export class CreateClassDto {
 
   @ApiProperty()
   course_id: number;
+
+  @ApiProperty()
+  educators: number[];
 }

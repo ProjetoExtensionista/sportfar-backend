@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class EducatorClassesDto {
-
+export class CreateEducatorClassDto {
   @ApiProperty()
   educator_id: number;
 
