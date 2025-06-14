@@ -15,7 +15,7 @@ export class UserController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   async findAll(): Promise<User[]> {
-    return this.userService.findAll();
+    return await this.userService.findAll();
   }
 
   @Get(':cpf')
@@ -23,7 +23,7 @@ export class UserController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   async find(@Param('cpf') cpf: string) {
-    return this.userService.findByCpf(cpf);
+    return await this.userService.findByCpf(cpf);
   }
 
   @Get('findByClass/:classId')
@@ -31,7 +31,15 @@ export class UserController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   async findByClass(@Param('classId') classId: number) {
-    return this.userService.findByClass(classId);
+    return await this.userService.findByClass(classId);
+  }
+
+  @Get('usertype/:usertype_id')
+  @ApiOkResponse({ type: UserResponseDto })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  async findByUsertype(@Param('usertype_id') usertype_id: number) {
+    return await this.userService.findByUsertype(usertype_id);
   }
 
   @Post()
