@@ -34,6 +34,14 @@ export class UserController {
     return this.userService.findByClass(classId);
   }
 
+  @Get('usertype/:usertype_id')
+  @ApiOkResponse({ type: UserResponseDto })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  async findByUsertype(@Param('usertype_id') usertype_id: number) {
+    return this.userService.findByUsertype(usertype_id);
+  }
+
   @Post()
   @ApiOkResponse({ type: UserRequestDto })
   @ApiBearerAuth()

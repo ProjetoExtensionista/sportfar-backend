@@ -22,7 +22,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { UserTypeDto } from './models/userType.dto';
 import { UserTypeService } from './userType.service';
 
-@Controller('user/type')
+@Controller('usertype')
 @ApiUnauthorizedResponse()
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
@@ -40,6 +40,14 @@ export class UserTypeController {
   @ApiOkResponse({ type: UserType })
   async getOne(@Param('id') id: number) {
     return this.userTypeService.findById(id);
+  }
+
+  @Get()
+  @ApiOkResponse({ type: UserTypeDto, isArray: true })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  async findAll(): Promise<UserType[] | null> {
+    return this.userTypeService.findAll();
   }
 
   @Patch(':id')

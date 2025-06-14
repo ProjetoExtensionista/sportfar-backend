@@ -16,6 +16,10 @@ export class UserTypeService {
     return this.userTypeRepo.findOneBy({ id });
   }
 
+  async findAll(): Promise<UserType[] | null> {
+    return this.userTypeRepo.find();
+  }
+
   async insertUserType(userTypeDto: UserTypeDto) {
     const userType = this.userTypeRepo.create(userTypeDto);
     return await this.userTypeRepo.save(userType);
