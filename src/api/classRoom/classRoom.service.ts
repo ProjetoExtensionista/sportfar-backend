@@ -15,6 +15,10 @@ export class ClassRoomService {
     return this.classRoomRepo.findOneBy({ id });
   }
 
+  async findAll(): Promise<ClassRoom[] | null> {
+    return this.classRoomRepo.find();
+  }
+
   async insertClassRoom(classRoomDto: ClassRoomDto) {
     const data = classRoomDto.classDate;
     const formattedDate = new Date(data.toString().split('T')[0]);
@@ -42,11 +46,11 @@ export class ClassRoomService {
     }
   }
 
-  async findByClassId(id: number): Promise<unknown[] | null> {
+  async findByClassRoomId(id: number): Promise<unknown[] | null> {
     const result = await this.classRoomRepo
       .createQueryBuilder('cr')
       .select([
-        'c.id AS class_id',
+        'c.id AS classroom_id',
         'c.name AS class_name',
         'u.id AS user_id',
         'u.full_name',
@@ -59,7 +63,7 @@ export class ClassRoomService {
       .innerJoin('ABSENCE_TYPE', 'at', 'at.id = a.type_id')
       .innerJoin('CLASSES', 'c', 'c.id = cr.class_id')
       .innerJoin('WEEKDAYS', 'wd', 'wd.id = c.week_day_id')
-      .where('cr.class_id = :id', { id })
+      .where('cr.id = :id', { id })
       .getRawMany();
     return result;
   }

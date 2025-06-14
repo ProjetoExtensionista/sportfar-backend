@@ -31,12 +31,20 @@ export class ClassRoomController {
     return this.ClassRoomService.findById(id);
   }
 
-  @Get('getStudentsAbsenceByClassId/:id')
+  @Get('')
+  @ApiOkResponse({ type: ClassRoom, isArray: true })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  async findAll() {
+    return this.ClassRoomService.findAll();
+  }
+
+  @Get('getStudentsAbsenceByClassRoomId/:id')
   @ApiOkResponse({ type: ClassRoom })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   async findByClassId(@Param('id') id: number) {
-    return this.ClassRoomService.findByClassId(id);
+    return this.ClassRoomService.findByClassRoomId(id);
   }
 
   @Post()
