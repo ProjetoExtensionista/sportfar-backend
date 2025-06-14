@@ -32,7 +32,7 @@ export class CourseService {
   async remove(id: number) {
     try {
       return await this.courseRepo.delete(id);
-    } catch (error: unknown) {
+    } catch {
       return {
         error: HttpStatus.CONFLICT,
         message: 'Não foi possível apagar o registro.',
