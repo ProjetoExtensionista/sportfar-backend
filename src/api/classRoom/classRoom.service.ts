@@ -12,11 +12,11 @@ export class ClassRoomService {
   ) {}
 
   async findById(id: number): Promise<ClassRoom | null> {
-    return this.classRoomRepo.findOneBy({ id });
+    return await this.classRoomRepo.findOneBy({ id });
   }
 
   async findAll(): Promise<ClassRoom[] | null> {
-    return this.classRoomRepo.find();
+    return await this.classRoomRepo.find();
   }
 
   async insertClassRoom(classRoomDto: ClassRoomDto) {
