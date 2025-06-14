@@ -32,14 +32,14 @@ export class UserTypeController {
   @Post()
   @ApiOkResponse({ type: UserType })
   async create(@Body() userTypeDto: UserTypeDto) {
-    await this.userTypeService.insertUserType(userTypeDto);
+    return await this.userTypeService.insertUserType(userTypeDto);
   }
 
   @Get(':id')
   @ApiParam({ name: 'id', type: Number })
   @ApiOkResponse({ type: UserType })
   async getOne(@Param('id') id: number) {
-    return this.userTypeService.findById(id);
+    return await this.userTypeService.findById(id);
   }
 
   @Get()
@@ -47,7 +47,7 @@ export class UserTypeController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   async findAll(): Promise<UserType[] | null> {
-    return this.userTypeService.findAll();
+    return await this.userTypeService.findAll();
   }
 
   @Patch(':id')
@@ -57,7 +57,7 @@ export class UserTypeController {
     @Param('id') id: number,
     @Body() userTypeDto: Partial<UserTypeDto>,
   ) {
-    return this.userTypeService.updateUserType(id, userTypeDto);
+    return await this.userTypeService.updateUserType(id, userTypeDto);
   }
 
   @Delete(':id')
@@ -65,6 +65,6 @@ export class UserTypeController {
   @ApiNoContentResponse()
   @HttpCode(HttpStatus.NO_CONTENT)
   async delete(@Param('id') id: number) {
-    await this.userTypeService.deleteUserType(id);
+    return await this.userTypeService.deleteUserType(id);
   }
 }
