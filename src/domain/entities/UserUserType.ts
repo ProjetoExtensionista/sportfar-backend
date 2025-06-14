@@ -21,7 +21,7 @@ export class UserUserType {
   user: User;
 
   @ManyToOne(() => UserType, { eager: true })
-  @JoinColumn({ name: 'usertype_id' })
+  @JoinColumn({ name: 'user_type_id' })
   @ApiProperty()
   userType: UserType;
 }
