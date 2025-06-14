@@ -28,15 +28,23 @@ export class ClassRoomController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   async find(@Param('id') id: number) {
-    return this.ClassRoomService.findById(id);
+    return await this.ClassRoomService.findById(id);
   }
 
-  @Get('getStudentsAbsenceByClassId/:id')
+  @Get('')
+  @ApiOkResponse({ type: ClassRoom, isArray: true })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  async findAll() {
+    return await this.ClassRoomService.findAll();
+  }
+
+  @Get('getStudentsAbsenceByClassRoomId/:id')
   @ApiOkResponse({ type: ClassRoom })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   async findByClassId(@Param('id') id: number) {
-    return this.ClassRoomService.findByClassId(id);
+    return await this.ClassRoomService.findByClassRoomId(id);
   }
 
   @Post()
@@ -51,12 +59,12 @@ export class ClassRoomController {
     @Param('id') id: number,
     @Body() ClassRoomDto: Partial<ClassRoomDto>,
   ) {
-    return this.ClassRoomService.updateClassRoom(id, ClassRoomDto);
+    return await this.ClassRoomService.updateClassRoom(id, ClassRoomDto);
   }
 
   @Delete(':id')
   @ApiParam({ name: 'id', type: Number })
   async delete(@Param('id') id: number) {
-    return this.ClassRoomService.deleteClassRoom(id);
+    return await this.ClassRoomService.deleteClassRoom(id);
   }
 }
