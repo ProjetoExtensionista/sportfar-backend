@@ -7,6 +7,7 @@ import { ClassRoomModule } from './classRoom/classRoom.module';
 import { CourseModule } from './courses/course.module';
 import { EducatorClassesModule } from './educatorClasses/educatorclasses.module';
 import { GrantEducatorTypeToUserModule } from './grantEducatorTypeToUser/grantEducatorTypeToUser.module';
+import { ReportsModule } from './reports/reports.module';
 import { UserClassModule } from './userClass/userClass.module';
 import { UsersModule } from './users/users.module';
 import { UserTypeModule } from './userType/userType.module';
@@ -27,6 +28,7 @@ import { UserTypeModule } from './userType/userType.module';
     ClassRoomModule,
     EducatorClassesModule,
     GrantEducatorTypeToUserModule,
+    ReportsModule,
   ],
 })
 export class ApiModule {}
