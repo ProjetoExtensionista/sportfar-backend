@@ -9,25 +9,25 @@ import { UpdateEducatorClassDto } from './models/updateEducatorClass.dto';
 export class EducatorClassService {
   constructor(
     @InjectRepository(EducatorClass)
-    private educatorClassesRepo: Repository<EducatorClass>,
+    private educatorClassRepo: Repository<EducatorClass>,
   ) {}
 
   async insert(createEducatorClassDto: CreateEducatorClassDto) {
-    const educatorClass = this.educatorClassesRepo.create({
+    const educatorClass = this.educatorClassRepo.create({
       educator: { id: createEducatorClassDto.educator_id },
       class: { id: createEducatorClassDto.class_id },
     });
-    return await this.educatorClassesRepo.save(educatorClass);
+    return await this.educatorClassRepo.save(educatorClass);
   }
 
   async findByEducId(educator_id: number): Promise<EducatorClass[] | null> {
-    return this.educatorClassesRepo.find({
+    return await this.educatorClassRepo.find({
       where: { educator: { id: educator_id } },
     });
   }
 
   async findByClassId(class_id: number): Promise<EducatorClass[] | null> {
-    return this.educatorClassesRepo.find({
+    return await this.educatorClassRepo.find({
       where: { class: { id: class_id } },
     });
   }
@@ -36,19 +36,20 @@ export class EducatorClassService {
     id: number,
     updateEducatorClassDto: Partial<UpdateEducatorClassDto>,
   ) {
-    return await this.educatorClassesRepo.update(id, {
+    return await this.educatorClassRepo.update(id, {
       educator: { id: updateEducatorClassDto.educator_id },
       class: { id: updateEducatorClassDto.class_id },
     });
   }
 
   async delete(id: number) {
-    const result = await this.educatorClassesRepo.delete(id);
-
-    if (result.affected === 0) {
-      throw new common.NotFoundException(
-        `Relação Educator Class com o id:${id} não encontrado`,
-      );
+    try {
+      return await this.educatorClassRepo.delete(id);
+    } catch {
+      return {
+        error: common.HttpStatus.CONFLICT,
+        message: 'Não foi possível apagar o registro.',
+      };
     }
   }
 }
