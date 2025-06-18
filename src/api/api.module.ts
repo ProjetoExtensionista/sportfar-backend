@@ -5,7 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { ClassModule } from './classes/class.module';
 import { ClassRoomModule } from './classRoom/classRoom.module';
 import { CourseModule } from './courses/course.module';
-import { EducatorClassesModule } from './educatorClasses/educatorclasses.module';
+import { EducatorClassModule } from './educatorClass/educatorClass.module';
 import { GrantEducatorTypeToUserModule } from './grantEducatorTypeToUser/grantEducatorTypeToUser.module';
 import { ReportsModule } from './reports/reports.module';
 import { UserClassModule } from './userClass/userClass.module';
@@ -20,7 +20,7 @@ import { UserTypeModule } from './userType/userType.module';
     ClassModule,
     ClassRoomModule,
     CourseModule,
-    EducatorClassesModule,
+    EducatorClassModule,
     GrantEducatorTypeToUserModule,
     UsersModule,
     UserClassModule,
