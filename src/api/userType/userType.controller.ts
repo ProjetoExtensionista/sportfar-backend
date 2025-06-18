@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   UseGuards,
@@ -38,7 +39,7 @@ export class UserTypeController {
   @Get(':id')
   @ApiParam({ name: 'id', type: Number })
   @ApiOkResponse({ type: UserType })
-  async getOne(@Param('id') id: number) {
+  async getOne(@Param('id', ParseIntPipe) id: number) {
     return await this.userTypeService.findById(id);
   }
 
