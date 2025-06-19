@@ -19,6 +19,10 @@ export class ClassRoomService {
     return await this.classRoomRepo.find();
   }
 
+  async findByClassId(class_id: number): Promise<ClassRoom[] | null> {
+    return await this.classRoomRepo.findBy({ classId:class_id, });
+  }
+
   async insertClassRoom(classRoomDto: ClassRoomDto) {
     const data = classRoomDto.classDate;
     const formattedDate = new Date(data.toString().split('T')[0]);
