@@ -39,11 +39,19 @@ export class ClassRoomController {
     return await this.ClassRoomService.findAll();
   }
 
+  @Get('getClassId/:id')
+  @ApiOkResponse({ type: ClassRoom, isArray: true })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  async findByClassId(@Param('id') id: number) {
+    return await this.ClassRoomService.findByClassId(id);
+  }
+
   @Get('getStudentsAbsenceByClassRoomId/:id')
   @ApiOkResponse({ type: ClassRoom })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  async findByClassId(@Param('id') id: number) {
+  async findByClassRoomId(@Param('id') id: number) {
     return await this.ClassRoomService.findByClassRoomId(id);
   }
 
