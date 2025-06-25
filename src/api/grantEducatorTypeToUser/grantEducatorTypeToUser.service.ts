@@ -11,6 +11,8 @@ export type UserToGrant = GrantEducatorTypeToUserDto & {
 
 @common.Injectable()
 export class GrantEducatorTypeToUserService {
+  private USER_TYPE_TO_BE_CHANGED = 2;
+
   constructor(
     @InjectRepository(UsersUsertype)
     private grantEducatorTypeToUserRepo: Repository<UsersUsertype>,
@@ -41,16 +43,28 @@ export class GrantEducatorTypeToUserService {
     const usersUsertype = this.grantEducatorTypeToUserRepo.create(userToGrant);
     return await this.grantEducatorTypeToUserRepo.save(usersUsertype);
   }
-  async deleteEducatorTypeFromUser(user_id: number) {
-    const result = await this.grantEducatorTypeToUserRepo.delete({
-      user_id: user_id,
-      user_type_id: 2,
-    });
 
-    if (result.affected === 0) {
-      throw new common.NotFoundException(
-        `O usuário com id: ${user_id} não é professor.`,
-      );
+  async deleteEducatorTypeFromUser(user_id: number) {
+    console.log('Bom dia');
+    try {
+      const result = await this.grantEducatorTypeToUserRepo.delete({
+        user_id: user_id,
+        user_type_id: this.USER_TYPE_TO_BE_CHANGED,
+      });
+
+      if (result.affected == 0) {
+        return {
+          error: common.HttpStatus.NOT_FOUND,
+          message: `O usuário com id ${user_id} não é professor.`,
+        };
+      }
+
+      return result;
+    } catch (error: unknown) {
+      return {
+        error: common.HttpStatus.NOT_FOUND,
+        message: error,
+      };
     }
   }
 }

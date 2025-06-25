@@ -19,6 +19,8 @@ export class GrantEducatorTypeToUserController {
   @Delete(':user_id')
   @ApiParam({ name: 'user_id', type: Number })
   async delete(@Param('user_id') user_id: number) {
-    return this.grantEducatorTypeToUserService.deleteEducatorTypeFromUser( user_id );
+    return await this.grantEducatorTypeToUserService.deleteEducatorTypeFromUser(
+      user_id,
+    );
   }
 }
