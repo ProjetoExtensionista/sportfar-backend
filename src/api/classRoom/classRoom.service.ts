@@ -48,22 +48,29 @@ export class ClassRoomService {
 
   async findByClassRoomId(id: number): Promise<unknown[] | null> {
     const result = await this.classRoomRepo
-      .createQueryBuilder('cr')
+      .createQueryBuilder('CLASSROOM')
       .select([
-        'c.id AS classroom_id',
-        'c.name AS class_name',
-        'u.id AS user_id',
-        'u.full_name',
-        'at.type AS absence_type',
-        'cr.class_date',
-        'wd.name AS weekday_name',
+        'CLASSROOM.id AS cl_id',
+        'CLASSES.name AS cls_name',
+        'USERS.full_name AS usr_name',
+        'USERS.birth_date AS "data nascimento"',
+        'ABSENCE_TYPE.type AS abs_type',
+        'ABSENCE.id AS abs_id',
       ])
-      .innerJoin('ABSENCE', 'a', 'a.classroom_id = cr.id')
-      .innerJoin('USERS', 'u', 'u.id = a.user_id')
-      .innerJoin('ABSENCE_TYPE', 'at', 'at.id = a.type_id')
-      .innerJoin('CLASSES', 'c', 'c.id = cr.class_id')
-      .innerJoin('WEEKDAYS', 'wd', 'wd.id = c.week_day_id')
-      .where('cr.id = :id', { id })
+      .innerJoin('CLASSES', 'CLASSES', 'CLASSROOM.class_id = CLASSES.id')
+      .innerJoin('USER_CLASS', 'USER_CLASS', 'USER_CLASS.class_id = CLASSES.id')
+      .innerJoin('USERS', 'USERS', 'USERS.id = USER_CLASS.user_id')
+      .leftJoin(
+        'ABSENCE',
+        'ABSENCE',
+        'USERS.id = ABSENCE.user_id AND CLASSROOM.id = ABSENCE.classroom_id',
+      )
+      .leftJoin(
+        'ABSENCE_TYPE',
+        'ABSENCE_TYPE',
+        'ABSENCE.type_id = ABSENCE_TYPE.id',
+      )
+      .where('CLASSROOM.id = :id', { id })
       .getRawMany();
     return result;
   }
