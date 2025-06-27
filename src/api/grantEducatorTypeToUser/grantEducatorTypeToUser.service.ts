@@ -45,7 +45,6 @@ export class GrantEducatorTypeToUserService {
   }
 
   async deleteEducatorTypeFromUser(user_id: number) {
-    console.log('Bom dia');
     try {
       const result = await this.grantEducatorTypeToUserRepo.delete({
         user_id: user_id,
