@@ -13,7 +13,11 @@ export class UserTypeService {
   ) {}
 
   async findById(id: number): Promise<UserType | null> {
-    return this.userTypeRepo.findOneBy({ id });
+    return await this.userTypeRepo.findOneBy({ id });
+  }
+
+  async findAll(): Promise<UserType[] | null> {
+    return await this.userTypeRepo.find();
   }
 
   async insertUserType(userTypeDto: UserTypeDto) {

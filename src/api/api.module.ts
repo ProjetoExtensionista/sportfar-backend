@@ -5,8 +5,9 @@ import { AuthModule } from './auth/auth.module';
 import { ClassModule } from './classes/class.module';
 import { ClassRoomModule } from './classRoom/classRoom.module';
 import { CourseModule } from './courses/course.module';
-import { EducatorClassesModule } from './educatorClasses/educatorclasses.module';
+import { EducatorClassModule } from './educatorClass/educatorClass.module';
 import { GrantEducatorTypeToUserModule } from './grantEducatorTypeToUser/grantEducatorTypeToUser.module';
+import { ReportsModule } from './reports/reports.module';
 import { UserClassModule } from './userClass/userClass.module';
 import { UsersModule } from './users/users.module';
 import { UserTypeModule } from './userType/userType.module';
@@ -17,16 +18,14 @@ import { UserTypeModule } from './userType/userType.module';
     AbsenceTypeModule,
     AuthModule,
     ClassModule,
-    CourseModule,
-    UsersModule,
-    UserTypeModule,
-    AbsenceModule,
-    AbsenceTypeModule,
-    UserClassModule,
-    ClassModule,
     ClassRoomModule,
-    EducatorClassesModule,
+    CourseModule,
+    EducatorClassModule,
     GrantEducatorTypeToUserModule,
+    UsersModule,
+    UserClassModule,
+    UserTypeModule,
+    ReportsModule,
   ],
 })
 export class ApiModule {}

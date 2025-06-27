@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class EducatorClassesDto {
+export class UserWithTypeDto {
   @ApiProperty()
-  educator_id: number;
+  fullName: string;
 
   @ApiProperty()
-  class_id: number;
+  type: string;
 }

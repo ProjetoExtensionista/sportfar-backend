@@ -12,7 +12,15 @@ export class ClassRoomService {
   ) {}
 
   async findById(id: number): Promise<ClassRoom | null> {
-    return this.classRoomRepo.findOneBy({ id });
+    return await this.classRoomRepo.findOneBy({ id });
+  }
+
+  async findAll(): Promise<ClassRoom[] | null> {
+    return await this.classRoomRepo.find();
+  }
+
+  async findByClassId(class_id: number): Promise<ClassRoom[] | null> {
+    return await this.classRoomRepo.findBy({ classId:class_id, });
   }
 
   async insertClassRoom(classRoomDto: ClassRoomDto) {
@@ -42,11 +50,11 @@ export class ClassRoomService {
     }
   }
 
-  async findByClassId(id: number): Promise<unknown[] | null> {
+  async findByClassRoomId(id: number): Promise<unknown[] | null> {
     const result = await this.classRoomRepo
       .createQueryBuilder('cr')
       .select([
-        'c.id AS class_id',
+        'c.id AS classroom_id',
         'c.name AS class_name',
         'u.id AS user_id',
         'u.full_name',
@@ -59,7 +67,7 @@ export class ClassRoomService {
       .innerJoin('ABSENCE_TYPE', 'at', 'at.id = a.type_id')
       .innerJoin('CLASSES', 'c', 'c.id = cr.class_id')
       .innerJoin('WEEKDAYS', 'wd', 'wd.id = c.week_day_id')
-      .where('cr.class_id = :id', { id })
+      .where('cr.id = :id', { id })
       .getRawMany();
     return result;
   }
