@@ -53,7 +53,7 @@ export class ClassRoomService {
         'CLASSROOM.id AS cl_id',
         'CLASSES.name AS cls_name',
         'USERS.full_name AS usr_name',
-        'USERS.birth_date AS "data nascimento"',
+        'USERS.birth_date AS "data_nascimento"',
         'ABSENCE_TYPE.type AS abs_type',
         'ABSENCE.id AS abs_id',
       ])
